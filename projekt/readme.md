@@ -129,8 +129,4 @@ void updateScore(int score) {
     oled_gotoxy(1, 0);
     oled_puts(scoreStr);
 }
-```c  
-
-
-
-
+```c
