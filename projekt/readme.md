@@ -13,7 +13,7 @@ https://github.com/michalkovar1/digital-electronics-2/assets/124684834/de4a36de-
 
 ## Popis hardweru demo aplikace
 
-Insert descriptive text and schematic(s) of your implementation.
+![406230359_706178621657777_1228848707927936040_n](https://github.com/michalkovar1/digital-electronics-2/assets/124684834/20230e21-25e5-470e-959a-af714097d5ed)
 
 ## Popis softwaru
 
