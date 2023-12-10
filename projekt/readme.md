@@ -12,6 +12,11 @@ Tento kód představuje jednoduchou implementaci hry ve stylu Pong pro AVR mikro
 
 Write an instruction manual for your application, including photos and a link to a short app video.
 
+
+https://github.com/michalkovar1/digital-electronics-2/assets/124684834/de4a36de-1408-43fd-a312-3caa2765ab5b
+
+
+
 ## Popis hardweru demo aplikace
 
 Insert descriptive text and schematic(s) of your implementation.
