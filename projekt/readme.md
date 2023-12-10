@@ -8,6 +8,10 @@
 
 Tento kód představuje jednoduchou implementaci hry ve stylu Pong pro AVR mikrokontrolér s OLED displejem. Cílem hry je ovládat pálku tak, aby hráč co nejvíckrát odrážel padající míček a dosáhl největšího skóre.
 
+## Instrukce
+
+Write an instruction manual for your application, including photos and a link to a short app video.
+
 ## Hardware description of demo application
 
 Insert descriptive text and schematic(s) of your implementation.
@@ -115,7 +119,7 @@ Využívá funkci oled_drawLine.
 Zobrazuje míček na displeji podle jeho pozice.
 Používá funkci oled_drawCircle.
 
-###Funkce pro Aktualizaci Skóre
+Funkce pro Aktualizaci Skóre
 Funkce updateScore spravuje aktualizaci a zobrazení aktuálního skóre v pravém horním rohu displeje. Pomocí funkce itoa, dojde k převedení intergeru na string.
 
 ```c
@@ -127,11 +131,6 @@ void updateScore(int score) {
 }
 ```c  
 
-## Instructions
 
-Write an instruction manual for your application, including photos and a link to a short app video.
 
-## References
 
-1. Write your text here.
-2. ...
