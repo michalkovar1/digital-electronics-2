@@ -6,7 +6,7 @@
 
 ## Theoretical description and explanation
 
-Enter a description of the problem and how to solve it.
+Tento kód představuje jednoduchou implementaci hry ve stylu Pong pro AVR mikrokontrolér s OLED displejem. Cílem hry je ovládat pálku tak, aby hráč co nejvíckrát odrážel padající míček a dosáhl největšího skóre.
 
 ## Hardware description of demo application
 
