@@ -13,8 +13,13 @@ https://github.com/michalkovar1/digital-electronics-2/assets/124684834/de4a36de-
 
 ## Popis hardweru demo aplikace
 
+Schéma zapojení
 ![406230359_706178621657777_1228848707927936040_n](https://github.com/michalkovar1/digital-electronics-2/assets/124684834/20230e21-25e5-470e-959a-af714097d5ed)
 
+Reálné zapojení
+![403751706_238876782422355_8697197447976309203_n](https://github.com/michalkovar1/digital-electronics-2/assets/124684834/9ac14f76-219f-4626-9c58-d8497a857fa3)
+
+V zapojení jsou dvě tlačítka na ovládání pálky. Tlačítka josu zapojeny tak, aby reagovaly na vysokou úroveň. 
 ## Popis softwaru
 
 První část kódu obsahuje inicializaci OLED displeje a definici proměnných pro ukládání důležitých parametrů hry a funkcí:
