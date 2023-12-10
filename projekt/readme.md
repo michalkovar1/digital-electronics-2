@@ -106,12 +106,12 @@ updateScore(score);
 oled_display();
 ```
 
-###Dvě funkce usnadňují kreslení na OLED displeji:
-####1. drawPaddle():
+Dvě funkce usnadňují kreslení na OLED displeji:
+1. drawPaddle():
 Vykresluje pálku na displeji na základě její pozice.
 Využívá funkci oled_drawLine.
 
-####2. drawball()
+2. drawball()
 Zobrazuje míček na displeji podle jeho pozice.
 Používá funkci oled_drawCircle.
 
