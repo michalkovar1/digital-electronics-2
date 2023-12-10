@@ -1,4 +1,4 @@
-### Team members
+### Členové týmu
 
 * Lukáš Kříž 
 * Michal Kovář
@@ -12,7 +12,7 @@ Tento kód představuje jednoduchou implementaci hry ve stylu Pong pro AVR mikro
 
 Write an instruction manual for your application, including photos and a link to a short app video.
 
-## Hardware description of demo application
+## Popis hardweru demo aplikace
 
 Insert descriptive text and schematic(s) of your implementation.
 
