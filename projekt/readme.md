@@ -14,7 +14,8 @@ https://github.com/michalkovar1/digital-electronics-2/assets/124684834/de4a36de-
 ## Popis hardweru demo aplikace
 Schéma zapojení
 
-![406230359_706178621657777_1228848707927936040_n](https://github.com/michalkovar1/digital-electronics-2/assets/124684834/20230e21-25e5-470e-959a-af714097d5ed)
+![406278629_379350461132029_7878879748548183024_n](https://github.com/michalkovar1/digital-electronics-2/assets/124684834/bca8e501-57d1-4cd7-81e8-d39ac0fdf56e)
+
 
 Reálné zapojení
 ![403751706_238876782422355_8697197447976309203_n](https://github.com/michalkovar1/digital-electronics-2/assets/124684834/9ac14f76-219f-4626-9c58-d8497a857fa3)
@@ -55,9 +56,10 @@ int score = 0;
 ### Hlavní smyčka
 Hlavní smyčka hry neustále aktualizuje stav hry. Klíčové kroky zahrnují:
 
-#### 1. Ovládání pálky 
+#### 1. Ovládání pálky + tlačítko RESET 
 Nastavuje pozici pálky na základě stisknutých tlačítek (RIGHT_BUTTON a LEFT_BUTTON).
 Zajišťuje, aby se pálka pohybovala v definovaných mezích.
+Tlačítko RESET nám vrátí míček a pálku na původní hodnoty.
 
 ```c
         if ((PIND & (1 << RIGHT_BUTTON)) == 0 && paddlePosition < OLED_WIDTH - PADDLE_WIDTH) {
@@ -65,6 +67,10 @@ Zajišťuje, aby se pálka pohybovala v definovaných mezích.
         }
         if ((PIND & (1 << LEFT_BUTTON)) == 0 && paddlePosition > 0) {
             paddlePosition -= 6;
+        }
+
+        if (((PIND & (1 << RESET_BUTTON)) == 0) {
+            resetGame(&paddlePosition, &ballX, &ballY, &ballSpeedX, &ballSpeedY, &score);
         }
 ```
 
@@ -123,7 +129,7 @@ Využívá funkci oled_drawLine.
 Zobrazuje míček na displeji podle jeho pozice.
 Používá funkci oled_drawCircle.
 
-Funkce pro Aktualizaci Skóre
+#### 5. Funkce pro Aktualizaci Skóre:
 Funkce updateScore spravuje aktualizaci a zobrazení aktuálního skóre v pravém horním rohu displeje. Pomocí funkce itoa, dojde k převedení intergeru na string.
 
 ```c
@@ -133,4 +139,17 @@ void updateScore(int score) {
     oled_gotoxy(1, 0);
     oled_puts(scoreStr);
 }
+```c
+
+#### 6. Funkce pro RESET hry:
+Funkce resetGame() spravuje obnovení hodnot pálky a míčku, jako tomu bylo na začátku. Je nutné zde použít ukazatele. 
+```c
+void resetGame(int* paddlePosition, int* ballX, int* ballY, int* ballSpeedX, int* ballSpeedY, int* score) {    
+    *paddlePosition = 0;
+    *ballX = OLED_WIDTH / 2;  
+    *ballY = OLED_HEIGHT / 2;  
+    *ballSpeedX = 2;  
+    *ballSpeedY = 2;  
+    *score = 0;
+        }
 ```
