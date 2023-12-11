@@ -139,7 +139,7 @@ void updateScore(int score) {
     oled_gotoxy(1, 0);
     oled_puts(scoreStr);
 }
-```c
+```
 
 #### 6. Funkce pro RESET hry:
 Funkce resetGame() spravuje obnovení hodnot pálky a míčku, jako tomu bylo na začátku. Je nutné zde použít ukazatele. 
