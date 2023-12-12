@@ -1,9 +1,8 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
-#include "timer.h"
 #include "oled.h"
 
-// Definice pro OLED displej
+// Definice pro parametry OLED displeje
 #define OLED_WIDTH 128
 #define OLED_HEIGHT 64
 
@@ -22,15 +21,12 @@
 #define RESET_BUTTON PD3
 
 // Deklarace funkcí
-void oled_initialize(int mode);
 void oled_clear_screen(void);
-void oled_set_char_mode(int mode);
 void drawPaddle(int position);
 void drawBall(int x, int y);
 void updateScore(int score);
-
-
-
+void drawGameOver(void);
+void resetGame(int* paddlePosition, int* ballX, int* ballY, int* ballSpeedX, int* ballSpeedY, int* score);
 int main(void) {
     oled_init(OLED_DISP_ON);
     oled_clrscr();
@@ -50,12 +46,6 @@ int main(void) {
         if ((PIND & (1 << LEFT_BUTTON)) == 0 && paddlePosition > 0) {
             paddlePosition -= 6;
         }
-     if (((PIND & (1 << RESET_BUTTON)) == 0) {
-           resetGame(&paddlePosition, &ballX, &ballY, &ballSpeedX, &ballSpeedY, &score);
-    }
-
-
-
 
         // Aktualizace pozice míčku
         ballX += ballSpeedX;
@@ -69,10 +59,6 @@ int main(void) {
         if (ballY-OLED_HEIGHT <= 0) {
             ballSpeedY = -ballSpeedY;
         }
-         if(ballY + BALL_HEIGHT >= OLED_HEIGHT){
-                  drawGameOver();  
-        }
-       
 
         // Detekce kolize s pálkou
         if (ballY + BALL_HEIGHT >= OLED_HEIGHT - PADDLE_HEIGHT - PADDLE_HEIGHT_MARGIN &&
@@ -87,33 +73,35 @@ int main(void) {
         drawPaddle(paddlePosition);
         drawBall(ballX, ballY);
         updateScore(score);
-         oled_display();
-       
+        oled_display();
+
+        if(ballY + BALL_HEIGHT >= OLED_HEIGHT){
+            drawGameOver();
+                while (((PIND & (1 << RESET_BUTTON))) == 0);
+                    resetGame(&paddlePosition, &ballX, &ballY, &ballSpeedX, &ballSpeedY, &score);
+        }
+
     }
 
     return 0;
 }
 
 void drawPaddle(int position) {
+    // Funkce pro vykreslení pálky na displeji
     oled_drawLine(position, OLED_HEIGHT - PADDLE_HEIGHT, position + PADDLE_WIDTH, OLED_HEIGHT - PADDLE_HEIGHT, WHITE);
 }
 
 void drawBall(int x, int y) {
+    // Funkce pro vykreslení míčku na displeji
     oled_drawCircle(x, y, BALL_WIDTH / 2, WHITE);
 }
 
 void updateScore(int score) {
-    // Aktualizace a zobrazení skóre v levém horním rohu
-    char scoreStr[5];  // Pro uchování řetězce
+    // Funkce pro zobrazení skóre v pravém horním rohu
+    char scoreStr[5];
     itoa(score,scoreStr,10 );
     oled_gotoxy(1, 0);
     oled_puts(scoreStr);
-}
-
-// Implementace funkcí pro ovládání OLED displeje
-void oled_initialize(int mode) {
-    // Implementace inicializace OLED displeje
-    oled_init(OLED_DISP_ON);
 }
 
 void oled_clear_screen(void) {
@@ -122,19 +110,19 @@ void oled_clear_screen(void) {
 }
 
 void drawGameOver(){
+    //Funkce pro ukončení hry
     oled_clrscr();
     oled_charMode(DOUBLESIZE);
     oled_gotoxy(0, 5);
     oled_puts("KONEC");
     oled_display();
 }
-
-
-void resetGame(int* paddlePosition, int* ballX, int* ballY, int* ballSpeedX, int* ballSpeedY, int* score) {    
+void resetGame(int* paddlePosition, int* ballX, int* ballY, int* ballSpeedX, int* ballSpeedY, int* score) {
+    //Funkce pro reset hry
     *paddlePosition = 0;
-    *ballX = OLED_WIDTH / 2;  
-    *ballY = OLED_HEIGHT / 2;  
-    *ballSpeedX = 2;  
-    *ballSpeedY = 2;  
+    *ballX = OLED_WIDTH / 2;
+    *ballY = OLED_HEIGHT - 60;
+    *ballSpeedX = 2;
+    *ballSpeedY = 2;
     *score = 0;
-        }
+}
