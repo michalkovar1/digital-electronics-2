@@ -130,7 +130,7 @@ Využívá funkci oled_drawLine.
 Zobrazuje míček na displeji podle jeho pozice.
 Používá funkci oled_drawCircle.
 
-#### 5. Funkce pro Aktualizaci Skóre
+#### Funkce pro Aktualizaci Skóre
 Funkce updateScore spravuje aktualizaci a zobrazení aktuálního skóre v pravém horním rohu displeje. Pomocí funkce itoa, dojde k převedení intergeru na string.
 
 ```c
@@ -142,7 +142,7 @@ void updateScore(int score) {
 }
 ```  
 
-#### 6. Funkce pro Reset hry:
+#### Funkce pro Reset hry:
 Funkce resetGame po zmáčknutí tlačíka resetuje hru a vrátí hodnoty míčku a pálky na hodnoty, které byly definovány an začátku hry.
 ```c
 void resetGame(int* paddlePosition, int* ballX, int* ballY, int* ballSpeedX, int* ballSpeedY, int* score) {
