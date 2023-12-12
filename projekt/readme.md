@@ -56,10 +56,9 @@ int score = 0;
 ### Hlavní smyčka
 Hlavní smyčka hry neustále aktualizuje stav hry. Klíčové kroky zahrnují:
 
-#### 1. Ovládání pálky + tlačítko RESET 
+#### 1. Ovládání pálky 
 Nastavuje pozici pálky na základě stisknutých tlačítek (RIGHT_BUTTON a LEFT_BUTTON).
 Zajišťuje, aby se pálka pohybovala v definovaných mezích.
-Tlačítko RESET nám vrátí míček a pálku na původní hodnoty.
 
 ```c
         if ((PIND & (1 << RIGHT_BUTTON)) == 0 && paddlePosition < OLED_WIDTH - PADDLE_WIDTH) {
@@ -67,10 +66,6 @@ Tlačítko RESET nám vrátí míček a pálku na původní hodnoty.
         }
         if ((PIND & (1 << LEFT_BUTTON)) == 0 && paddlePosition > 0) {
             paddlePosition -= 6;
-        }
-
-        if (((PIND & (1 << RESET_BUTTON)) == 0) {
-            resetGame(&paddlePosition, &ballX, &ballY, &ballSpeedX, &ballSpeedY, &score);
         }
 ```
 
@@ -87,8 +82,14 @@ Mění pozici míčku na základě jeho aktuální rychlosti.
             ballSpeedX = -ballSpeedX;
         }
 
-        if (ballY <= 0 || ballY >= OLED_HEIGHT - BALL_HEIGHT) {
+        if (ballY-OLED_HEIGHT <= 0) {
             ballSpeedY = -ballSpeedY;
+        }
+
+        if(ballY + BALL_HEIGHT >= OLED_HEIGHT){
+            drawGameOver();
+                while (((PIND & (1 << RESET_BUTTON))) == 0);
+                    resetGame(&paddlePosition, &ballX, &ballY, &ballSpeedX, &ballSpeedY, &score);
         }
 ```
 
@@ -129,7 +130,7 @@ Využívá funkci oled_drawLine.
 Zobrazuje míček na displeji podle jeho pozice.
 Používá funkci oled_drawCircle.
 
-#### 5. Funkce pro Aktualizaci Skóre:
+#### 5. Funkce pro Aktualizaci Skóre
 Funkce updateScore spravuje aktualizaci a zobrazení aktuálního skóre v pravém horním rohu displeje. Pomocí funkce itoa, dojde k převedení intergeru na string.
 
 ```c
@@ -139,17 +140,17 @@ void updateScore(int score) {
     oled_gotoxy(1, 0);
     oled_puts(scoreStr);
 }
-```
+```  
 
-#### 6. Funkce pro RESET hry:
-Funkce resetGame() spravuje obnovení hodnot pálky a míčku, jako tomu bylo na začátku. Je nutné zde použít ukazatele. 
+#### 6. Funkce pro Reset hry:
+Funkce resetGame po zmáčknutí tlačíka resetuje hru a vrátí hodnoty míčku a pálky na hodnoty, které byly definovány an začátku hry.
 ```c
-void resetGame(int* paddlePosition, int* ballX, int* ballY, int* ballSpeedX, int* ballSpeedY, int* score) {    
+void resetGame(int* paddlePosition, int* ballX, int* ballY, int* ballSpeedX, int* ballSpeedY, int* score) {
     *paddlePosition = 0;
-    *ballX = OLED_WIDTH / 2;  
-    *ballY = OLED_HEIGHT / 2;  
-    *ballSpeedX = 2;  
-    *ballSpeedY = 2;  
+    *ballX = OLED_WIDTH / 2;
+    *ballY = OLED_HEIGHT - 60;
+    *ballSpeedX = 2;
+    *ballSpeedY = 2;
     *score = 0;
-        }
-```
+}
+```  
