@@ -14,7 +14,8 @@ https://github.com/michalkovar1/digital-electronics-2/assets/124684834/de4a36de-
 ## Popis hardweru demo aplikace
 Schéma zapojení
 
-![406278629_379350461132029_7878879748548183024_n](https://github.com/michalkovar1/digital-electronics-2/assets/124684834/bca8e501-57d1-4cd7-81e8-d39ac0fdf56e)
+![377241489_329722893194763_2643288765157113314_n](https://github.com/michalkovar1/digital-electronics-2/assets/124684834/389c4da7-884d-4a58-9c09-ad9d8c47fa54)
+
 
 
 Reálné zapojení
@@ -24,7 +25,6 @@ V zapojení jsou dvě tlačítka na ovládání pálky. Tlačítka jsou zapojeny
 ## Popis softwaru
 
 První část kódu obsahuje inicializaci OLED displeje a definici proměnných pro ukládání důležitých parametrů hry a funkcí:
-
 ```c
 // Definice pro OLED displej
 #define OLED_WIDTH 128
@@ -82,14 +82,8 @@ Mění pozici míčku na základě jeho aktuální rychlosti.
             ballSpeedX = -ballSpeedX;
         }
 
-        if (ballY-OLED_HEIGHT <= 0) {
+        if (ballY <= 0 || ballY >= OLED_HEIGHT - BALL_HEIGHT) {
             ballSpeedY = -ballSpeedY;
-        }
-
-        if(ballY + BALL_HEIGHT >= OLED_HEIGHT){
-            drawGameOver();
-                while (((PIND & (1 << RESET_BUTTON))) == 0);
-                    resetGame(&paddlePosition, &ballX, &ballY, &ballSpeedX, &ballSpeedY, &score);
         }
 ```
 
@@ -121,16 +115,16 @@ updateScore(score);
 oled_display();
 ```
 
-Dvě funkce usnadňují kreslení na OLED displeji:
-1. drawPaddle():
+### Dvě funkce usnadňují kreslení na OLED displeji:
+#### 1. drawPaddle():
 Vykresluje pálku na displeji na základě její pozice.
 Využívá funkci oled_drawLine.
 
-2. drawball()
+#### 2. drawball()
 Zobrazuje míček na displeji podle jeho pozice.
 Používá funkci oled_drawCircle.
 
-#### Funkce pro Aktualizaci Skóre
+### Funkce pro Aktualizaci Skóre
 Funkce updateScore spravuje aktualizaci a zobrazení aktuálního skóre v pravém horním rohu displeje. Pomocí funkce itoa, dojde k převedení intergeru na string.
 
 ```c
@@ -139,18 +133,5 @@ void updateScore(int score) {
     itoa(score, scoreStr, 10);
     oled_gotoxy(1, 0);
     oled_puts(scoreStr);
-}
-```  
-
-#### Funkce pro Reset hry:
-Funkce resetGame po zmáčknutí tlačíka resetuje hru a vrátí hodnoty míčku a pálky na hodnoty, které byly definovány an začátku hry.
-```c
-void resetGame(int* paddlePosition, int* ballX, int* ballY, int* ballSpeedX, int* ballSpeedY, int* score) {
-    *paddlePosition = 0;
-    *ballX = OLED_WIDTH / 2;
-    *ballY = OLED_HEIGHT - 60;
-    *ballSpeedX = 2;
-    *ballSpeedY = 2;
-    *score = 0;
 }
 ```  
