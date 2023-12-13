@@ -1,6 +1,5 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
-#include "timer.h"
 #include "oled.h"
 
 // Definice pro OLED displej
@@ -19,7 +18,6 @@
 // Piny pro tlačítka
 #define RIGHT_BUTTON PD7
 #define LEFT_BUTTON PD5
-#define RESET_BUTTON PD4
 
 // Deklarace funkcí
 void oled_initialize(int mode);
@@ -86,7 +84,7 @@ int main(void) {
 }
 
 void drawPaddle(int position) {
-    // funkce pro vykreslení pálky na displeji
+    //  funkce pro vykreslení pálky na displeji
     oled_drawLine(position, OLED_HEIGHT - PADDLE_HEIGHT, position + PADDLE_WIDTH, OLED_HEIGHT - PADDLE_HEIGHT, WHITE);
 }
 
