@@ -20,7 +20,7 @@ Schéma zapojení
 Reálné zapojení
 ![403751706_238876782422355_8697197447976309203_n](https://github.com/michalkovar1/digital-electronics-2/assets/124684834/9ac14f76-219f-4626-9c58-d8497a857fa3)
 
-V zapojení jsou dvě tlačítka na ovládání pálky. Tlačítka josu zapojeny tak, aby reagovaly na vysokou úroveň. 
+V zapojení jsou dvě tlačítka na ovládání pálky. Tlačítka jsou zapojeny tak, aby reagovaly na vysokou úroveň. 
 ## Popis softwaru
 
 První část kódu obsahuje inicializaci OLED displeje a definici proměnných pro ukládání důležitých parametrů hry a funkcí:
